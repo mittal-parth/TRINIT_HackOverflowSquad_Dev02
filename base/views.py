@@ -53,3 +53,13 @@ def bug(request, pk):
     
     if request.method == 'DELETE':
         return deleteBug(request, pk)
+
+
+## Comment methods
+@api_view(['GET','POST'])
+def comments(request, pk):
+    if request.method == 'POST':
+        return createComment(request, pk)
+
+    if request.method == 'GET':
+        return getComments(request, pk)

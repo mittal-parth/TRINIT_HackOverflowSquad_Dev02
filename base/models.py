@@ -37,4 +37,4 @@ class Comment(models.Model):
     description = RichTextField()
 
     def __str__(self):
-        return str(self.id) + ' ' + self.bug.name
+        return str(self.id)

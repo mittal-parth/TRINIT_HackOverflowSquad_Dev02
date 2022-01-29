@@ -71,10 +71,24 @@ def getBugs(request):
 # Create Bug
 def createBug(request):
     serializer = BugSerialzer(data=request.data)
+    dict = {}
     if serializer.is_valid():
-        serializer.save()
+        bug = Bug(name = request.data['name'], description = request.data['description'], status = request.data['status'], date_created = request.data['date_created'], deadline = request.data['deadline'], requested_by = request.user, assigned_to = request.data['assigned_to'], tags = request.data['tags'])
+        bug.save()
 
-    return Response(serializer.data)  
+        serializer.save()
+        dict = {
+            "name":bug.name,
+            "description":bug.description,
+            "status": bug.status,
+            "date_created": bug.date_created,
+            "deadline": bug.deadline,
+            "requested_by": bug.requested_by,
+            "assigned_to": bug.assigned_to,
+            "tags": bug.tags,
+        }
+    
+    return Response(dict)  
 
 # Read Bug
 def readBug(request, pk):
@@ -99,4 +113,31 @@ def deleteBug(request, pk):
     bug.delete()
 
     return Response('Bug successfully deleted!')
+
+## ----Comment methods----
+
+# Create Comment
+def createComment(request, pk):
+    serializer = CommentSerialzer(data=request.data)
+
+    if serializer.is_valid():
+
+        bug = Bug.objects.get(id=pk)
+        comment = Comment(description=request.data['description'], bug = bug)
+
+        comment.save()
+
+        dict = {
+            "id": comment.id,
+            "description": comment.description,
+            "bug": comment.bug.id,
+        }
+    return Response(dict)
+
+# Get all comments related to bug
+def getComments(request, pk):
+    comments = Comment.objects.filter(bug__id = 1) 
+    serializer = CommentSerialzer(comments, many=True)
+
+    return Response(serializer.data)
 

@@ -11,6 +11,9 @@ urlpatterns = [
     path("bugs/", views.bugs, name = 'bugs'),
     path("bug/<str:pk>/", views.bug, name="bug"),
 
+    # Comment URLs
+    path("comments/<str:pk>", views.comments, name = 'comments'),
+
     #Tag URLs
     path("tag/", views.tag)
 ]
