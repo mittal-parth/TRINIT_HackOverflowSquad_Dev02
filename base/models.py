@@ -31,3 +31,10 @@ class Bug(models.Model):
 
     def __str__(self):
         return self.name + ' ' + self.requested_by.username
+
+class Comment(models.Model):
+    bug = models.ForeignKey(Bug, null=True, on_delete=models.SET_NULL)
+    description = RichTextField()
+
+    def __str__(self):
+        return self.id + ' ' + self.bug.name
