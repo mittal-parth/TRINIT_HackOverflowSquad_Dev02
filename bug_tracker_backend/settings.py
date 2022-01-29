@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'base',
+    'ckeditor'
 ]
 
 SITE_ID = 1
