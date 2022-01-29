@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Chip, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import React from 'react';
@@ -18,14 +18,15 @@ const Team = () => {
      <TopBar/>
      <div className={classes.appbar}></div>
      <Box p={3}>
-      <Button size="small" startIcon={<FiArrowLeft fontSize="small"/>}>
-        Back to bug list
-      </Button>
-      <Box mt={1} display="flex" justifyContent="space-between" alignItems="center">
       <Typography color="textPrimary" style={{fontWeight:700}} variant="h4">
-        #1 Issue in production
+        Team Dhamaka
       </Typography>
-     </Box>
+      <Typography variant="subtitle2" color="textSecondary">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
+      </Typography>
+      <Typography variant="subtitle2" color="textSecondary">
+        Anas
+      </Typography>
      </Box>
     </>
   );
