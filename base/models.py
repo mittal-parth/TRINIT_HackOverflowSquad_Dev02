@@ -30,4 +30,4 @@ class Bug(models.Model):
     deadline = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return self.name + ' ' + self.requested_by
+        return self.name + ' ' + self.requested_by.username
