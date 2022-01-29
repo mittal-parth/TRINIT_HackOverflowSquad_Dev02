@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wz-b%41l10-c8j-&l$e30cqt!0y99vd$a!r5ij(q%8nlg*#t!o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '159.89.87.91']
 
 
 # Application definition
@@ -59,9 +59,7 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
-CORS_ALLOWED_ORIGINS = [    
-'http://localhost:3000'
-]
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
