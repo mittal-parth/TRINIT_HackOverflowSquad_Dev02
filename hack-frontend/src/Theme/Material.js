@@ -267,7 +267,7 @@ const theme = createTheme({
             "700": "#d4393a",
             "800": "#c73333",
             "900": "#b82827",
-            "main": "#f05a5a",
+            "main": "#044474",
             "light": "#fecfd5",
             "dark": "#c73333",
             "contrastText": "#fff"
@@ -360,7 +360,7 @@ const theme = createTheme({
             "contrastText": "rgba(0, 0, 0, 0.87)"
         },
         "secondary": {
-            "main": "#42464f",
+            "main": "#f0f73c",
             "light": "#9ea3ad",
             "dark": "#21252d",
             "contrastText": "#fff"

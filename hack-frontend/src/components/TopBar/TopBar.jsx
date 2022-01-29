@@ -1,8 +1,11 @@
 import { AppBar, Badge, Box, Button, IconButton, Paper, Toolbar, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 import NITKLogo from '../../assets/images/nitk-logo.png';
-import { FiShoppingBag } from 'react-icons/fi';
+import { FiArrowUpRight, FiLogOut, FiShoppingBag } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGOUT } from "../../store/JWTReducer/jwt.types"
+import { Link, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
@@ -29,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     paddingRight: theme.spacing(5),
-    color: "white"
+    color: "black"
 
   },
   linkContainer: {
@@ -40,108 +43,68 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
-  iconContainer: {
-    display: "flex",
-    backgroundColor: "transparent",
-    border: "none",
-    paddingRight: "56px",
-    [theme.breakpoints.down("sm")]: {
-      paddingRight: theme.spacing(2),
-    }
-  },
-
-  accountButton: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none"
-    }
-  },
-  menuButton: {
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
-  drawer: {
-  },
-
-  searchBar: {
-    backgroundColor: theme.palette.secondary.light,
-    marginRight: theme.spacing(4),
-    borderRadius: "7px",
-    fontSize: "12px",
-    paddingLeft: theme.spacing(1),
-    boxShadow: theme.shadows[10]
-  }
-
 }))
 
 
 const TopBar = (props) => {
   const classes = useStyles()
+  const isLoggedIn = useSelector(state => state.auth.loggedIn)
+  const user = useSelector(state => state.auth.user)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    dispatch({ type: LOGOUT })
+    navigate("/login")
+  }
 
   return (
 
-    <AppBar position="absolute" elevation={0}>
+    <AppBar style={{backgroundColor:"transparent"}} position="fixed" elevation={0}>
       <Toolbar>
-
         <Box mr={5}>
           <img style={{ height: "32px" }} alt="logo" src={NITKLogo} />
         </Box>
 
-        <Box display="flex" justifyContent="center">
-
-          <Typography className={classes.subtitle} variant="body2">
-            Home
-          </Typography>
-
+        {isLoggedIn && <Box display="flex" justifyContent="center">
           <Typography className={classes.subtitle} variant="body2">
             Dashboard
           </Typography>
 
+          <Link to="/team">
           <Typography className={classes.subtitle} variant="body2">
-            Courses
+            Teams
           </Typography>
+          </Link>
 
           <Typography className={classes.subtitle} variant="body2">
             Forums
           </Typography>
+        </Box>}
 
-        </Box>
 
-
-        <Box
+         <Box
           display="flex"
           justifyContent="flex-end"
+          width="100%"
         >
-          
-          
-            <IconButton size="small"  className={classes.shoppingButton}>
-              <Badge badgeContent={3} color="primary">
-                <FiShoppingBag/>
-              </Badge>
+          {isLoggedIn && (
+            <Box display='flex'>
+              <Typography color="primary" className={classes.subtitle} variant="body2">
+                {user.username}
+              </Typography>
+            <IconButton onClick={handleLogout} size="small"  className={classes.shoppingButton}>
+                <FiLogOut/>
             </IconButton>
+            </Box>
+            )
+        }
 
-
-            <IconButton size="small"  className={classes.shoppingButton}>
-              <Badge badgeContent={3} color="primary">
-                <FiShoppingBag/>
-              </Badge>
-            </IconButton>
-
-
-
-
-
-         {/* <Link to={`/user/${logged.user.id}`}>   <IconButton size="small" className={classes.accountButton}>
-              <Person/>
-            </IconButton>
-            </Link> */}
-
-          {/* <IconButton 
-            className={classes.menuButton}>
-              <MenuIcon/>
-            </IconButton> */}
-
+        {!isLoggedIn && 
+        <p>login</p>}
         </Box>
+        
       </Toolbar>
 
 
