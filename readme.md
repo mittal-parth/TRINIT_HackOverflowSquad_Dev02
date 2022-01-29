@@ -1,4 +1,4 @@
-# Django REST Framework Auth
+# TRINIT_HackOverflowSquad_Dev02 - Bug Tracker System
 
 <br>
 <h2>Setting up the project:</h2>
