@@ -73,6 +73,7 @@ def createBug(request):
     serializer = BugSerialzer(data=request.data)
     dict = {}
     if serializer.is_valid():
+        print(request.data)
         bug = Bug(name = request.data['name'], description = request.data['description'], status = request.data['status'], date_created = request.data['date_created'], deadline = request.data['deadline'], requested_by = request.user, assigned_to = request.data['assigned_to'], tags = request.data['tags'])
         bug.save()
 
