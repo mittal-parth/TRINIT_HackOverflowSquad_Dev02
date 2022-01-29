@@ -1,5 +1,5 @@
 from django.contrib import admin
-from base.models import Bug, Team, Tag
+from base.models import Bug, Team, Tag, Comment
 # Register your models here.
 
 admin.site.register(Bug)
