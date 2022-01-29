@@ -24,10 +24,10 @@ class Bug(models.Model):
     description = RichTextField()
     status = models.CharField(max_length=100, null=False, choices=STATUS, default='Unassigned')
     requested_by = models.ForeignKey(User, null=True, on_delete = models.SET_NULL, related_name="%(class)s_requested_by")
-    assigned_to = models.ForeignKey(User, null=True, on_delete = models.SET_NULL, related_name="%(class)s_assigned_to")
+    assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete = models.SET_NULL, related_name="%(class)s_assigned_to")
     tags = models.ManyToManyField(Tag, blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    deadline = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateField(auto_now_add=True)
+    deadline = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.name + ' ' + self.requested_by.username

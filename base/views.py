@@ -10,10 +10,7 @@ from .utils import *
 @api_view(['GET', 'POST'])
 def teams(request):
     if request.method == 'GET':
-        teams = Team.objects.all()
-        serializer = TeamSerialzer(teams, many=True)
-
-        return Response(serializer.data)
+        return getTeams(request)
 
     if request.method == 'POST':
         return createTeam(request)
@@ -35,3 +32,24 @@ def team(request, pk):
 def tag(request):
     if request.method == 'POST':
         createTag(request)
+
+## Bug methods
+@api_view(['GET','POST'])
+def bugs(request):
+    if request.method == 'GET':
+        return getBugs(request)
+
+    if request.method == 'POST':
+        return createBug(request)
+
+# Methods pertaining to a single bug (excluding create)
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+def bug(request, pk):
+    if request.method == 'GET':
+        return readBug(request, pk)
+
+    if request.method == 'PUT' or request.method == 'PATCH':
+        return updateBug(request, pk)
+    
+    if request.method == 'DELETE':
+        return deleteBug(request, pk)
