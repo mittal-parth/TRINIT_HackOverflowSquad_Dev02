@@ -33,6 +33,7 @@ class Bug(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, null=True)
     date_created = models.DateField(auto_now_add=True)
     deadline = models.DateField(blank=True, null=True)
+    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name + ' ' + self.requested_by.username

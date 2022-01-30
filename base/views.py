@@ -5,6 +5,10 @@ from rest_framework.response import Response
 from .utils import *
 # Create your views here.
 
+@api_view(['GET'])
+def userprofile(request, pk):
+    pass
+
 ## Team Methods
 # TODO: Show teams based on user role
 @api_view(['GET', 'POST'])
