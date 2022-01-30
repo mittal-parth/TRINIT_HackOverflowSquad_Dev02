@@ -36,7 +36,7 @@ class Bug(models.Model):
     team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.name + ' ' + self.requested_by.username
+        return self.name + str(self.id)
 
 class Comment(models.Model):
     bug = models.ForeignKey(Bug, null=True, on_delete=models.SET_NULL)
