@@ -68,19 +68,19 @@ const TopBar = (props) => {
         </Box>
 
         {isLoggedIn && <Box display="flex" justifyContent="center">
+        <Link to="/">
+
           <Typography className={classes.subtitle} variant="body2">
             Dashboard
           </Typography>
+          </Link>
 
           <Link to="/team">
           <Typography className={classes.subtitle} variant="body2">
-            Teams
+            Team
           </Typography>
           </Link>
 
-          <Typography className={classes.subtitle} variant="body2">
-            Forums
-          </Typography>
         </Box>}
 
 
@@ -92,7 +92,7 @@ const TopBar = (props) => {
           {isLoggedIn && (
             <Box display='flex'>
               <Typography color="primary" className={classes.subtitle} variant="body2">
-                {user.username}
+                {user.name}
               </Typography>
             <IconButton onClick={handleLogout} size="small"  className={classes.shoppingButton}>
                 <FiLogOut/>
@@ -100,9 +100,6 @@ const TopBar = (props) => {
             </Box>
             )
         }
-
-        {!isLoggedIn && 
-        <p>login</p>}
         </Box>
         
       </Toolbar>

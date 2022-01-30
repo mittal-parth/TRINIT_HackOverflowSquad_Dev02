@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TopBar from '../../components/TopBar/TopBar';
 import { blueGrey } from '@mui/material/colors';
 import auth from '../../services/auth/auth';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   appbar: theme.mixins.toolbar
@@ -46,7 +47,7 @@ const Signup = () => {
   return (
     <>
     <TopBar/>
-    <Grid container bgcolor={blueGrey[400]} height={"100vh"} alignItems={"center"}>
+    <Grid container  height={"100vh"} alignItems={"center"}>
       
       <Grid item xs={4}>
     <div className={classes.appbar}/>
@@ -79,7 +80,7 @@ const LeftContainer = ({setSignup, emailHandler, password1Handler, password2Hand
       Create an account <span>.</span>
     </Typography>
     <Typography color="textSecondary" paragraph variant="subtitle2">
-      Don't have a account? Sign up
+      Already have an account? <Link to="/login">Sign in</Link>
     </Typography>
 
     <TextField onChange={usernameHandler} style={{paddingBottom:10}} autoComplete='off' variant="filled" fullWidth label="Username" size="small"></TextField>

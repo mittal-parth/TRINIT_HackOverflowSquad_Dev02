@@ -1,6 +1,6 @@
 import './App.css';
 import Login from './pages/Login/Login';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Signup from './pages/Signup/Signup';
 import PrivateRoute from './Routes/Private';
 import PublicRoute from './Routes/Public';
@@ -16,6 +16,7 @@ function App() {
       <Route path="/" element={<PrivateRoute component={Dashboard}/>} />
       <Route path="/track/:id" element={<PrivateRoute component={BugDetail}/>} />
       <Route path="/team" element={<PrivateRoute component={Team}/>} />
+      <Route path="*" element={<Navigate to="/"/>} />
     </Routes>
   );
 }

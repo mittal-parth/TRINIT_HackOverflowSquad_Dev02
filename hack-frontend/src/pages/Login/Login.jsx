@@ -6,7 +6,7 @@ import { blueGrey } from '@mui/material/colors';
 import auth from '../../services/auth/auth';
 import { useDispatch } from 'react-redux';
 import { LOGIN } from "../../store/JWTReducer/jwt.types"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import user from '../../services/user/user';
 import { useSelector } from 'react-redux';
 
@@ -30,8 +30,17 @@ const Login = () => {
     .then((res)=>{
       user.info(res.data.key)
       .then((userInfoData=>{
-      dispatch({type:LOGIN, payload:{token:res.data.key, user: userInfoData.data}})
-      navigate('/')
+
+        user.userInfo(userInfoData.data.pk)
+        .then((userInfoData)=>{
+        
+            dispatch({type:LOGIN, payload:{token:res.data.key, 
+              user: {...userInfoData.data, role:userInfoData.data.designation, 
+                team:userInfoData.data.team_id}}})
+          
+          navigate('/')
+        })
+
       }))
     })
     .catch()
@@ -48,7 +57,7 @@ const Login = () => {
   return (
     <>
     <TopBar/>
-    <Grid container bgcolor={blueGrey[400]} height={"100vh"} alignItems={"center"}>
+    <Grid container height={"100vh"} alignItems={"center"}>
       
       <Grid item xs={4}>
     <div className={classes.appbar}/>
@@ -78,7 +87,7 @@ const LeftContainer = ({handleEmail, handlePasword, loginHandler}) => {
       Login to start <span>.</span>
     </Typography>
     <Typography color="textSecondary" paragraph variant="subtitle2">
-      Don't have a account? <span style={{color:blueGrey[100],textDecoration:"underline"}}>Sign up</span>
+      Don't have a account? <Link to="/signup"><span style={{color:blueGrey[100],textDecoration:"underline"}}>Sign up</span></Link>
     </Typography>
 
     <TextField onChange={handleEmail} style={{paddingBottom:10}} variant="filled" fullWidth label="email" size="small"></TextField>

@@ -2,10 +2,11 @@ import { Button, Chip, Divider, Typography } from '@mui/material';
 import { purple } from '@mui/material/colors';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { FiArrowLeft, FiPenTool } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TopBar from '../../components/TopBar/TopBar';
+import bugs from '../../services/bugs/bugs';
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,6 +16,14 @@ const useStyles = makeStyles(theme => ({
 const BugDetail = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [bug, setBug] = useState({})
+  const params = useParams()
+
+  useEffect(()=>{
+    bugs.get(undefined,params.id)
+    .then((res)=>setBug(res.data))
+  }, [])
+
   function backToBugsHandler (){
     navigate('/')
   }
@@ -30,7 +39,7 @@ const BugDetail = () => {
       </Button>
       <Box mt={1} display="flex" justifyContent="space-between" alignItems="center">
       <Typography color="textPrimary" style={{fontWeight:700}} variant="h4">
-        #1 Issue in production
+        #{params.id} {bug.name}
       </Typography>
 
       <Chip color="primary" icon={<FiPenTool/>} size="small" label="Parth mittal"></Chip>
@@ -43,9 +52,7 @@ const BugDetail = () => {
       Created 10 days ago</Typography>
 
       <Typography color="textSecondary" variant="subtitle2">
-        lorem ipsum dorem ipsum lorem ipsum lorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsum
-        lorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsumlorem ipsum dorem ipsum lorem ipsum lorem ipsum dorem ipsum lorem ipsum
-        lorem ipsum dorem ipsum lorem ipsum lorem ipsum dorem ipsum lorem ipsum 
+        {bug.description}
       </Typography>
       <Box align="right">
       <Typography align="right" color="primary" style={{textDecoration:"underline"}} variant="body2">Managed by Anas Aijaz</Typography>
