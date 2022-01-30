@@ -1,7 +1,34 @@
 from rest_framework.response import Response
+from rest_framework.generics import RetrieveUpdateAPIView
+from .app_settings import UserDetailsSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
 
 from .models import *
+
+class UserDetailsView(RetrieveUpdateAPIView):
+    """
+    Reads and updates UserModel fields
+    Accepts GET, PUT, PATCH methods.
+    Default accepted fields: username, first_name, last_name
+    Default display fields: pk, username, email, first_name, last_name
+    Read-only fields: pk, email
+    Returns UserModel fields.
+    """
+    serializer_class = UserDetailsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        context = {"designation":request.user.info.designation}
+        return Response(self.request.user,context=context)
+
+    def get_queryset(self):
+        """
+        Adding this method since it is sometimes called when using
+        django-rest-swagger
+        """
+        return get_user_model().objects.none()
+
 
 ## ----Team methods----
 # Team list
@@ -74,8 +101,11 @@ def createBug(request):
     dict = {}
     if serializer.is_valid():
         print(request.data)
-        bug = Bug(name = request.data['name'], description = request.data['description'], status = request.data['status'], date_created = request.data['date_created'], deadline = request.data['deadline'], requested_by = request.user, assigned_to = request.data['assigned_to'], tags = request.data['tags'])
-        bug.save()
+        print("\n\n")
+        print(serializer)
+        user = User.objects.get(id=2)
+        bug = Bug.objects.create(name = request.data['name'], description = request.data['description'], status = request.data['status'], date_created = request.data['date_created'], deadline = request.data['deadline'], requested_by = user, assigned_to = request.data['assigned_to'])
+        bug.tags.set(request.data['tags'])
 
         serializer.save()
         dict = {
@@ -86,7 +116,7 @@ def createBug(request):
             "deadline": bug.deadline,
             "requested_by": bug.requested_by,
             "assigned_to": bug.assigned_to,
-            "tags": bug.tags,
+            "tags": bug.tags.set(),
         }
     
     return Response(dict)  
