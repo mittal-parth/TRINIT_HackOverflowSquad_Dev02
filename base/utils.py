@@ -8,7 +8,10 @@ from .models import *
 
 def getUserProfile(request, pk):
     user = User.objects.get(id=pk)
-    team_id = user.team_members.first().id
+    team_id = -1
+    if user.info.designation != 'Client':
+        team_id = user.team_members.first().id
+    
     designation = user.info.designation
     name = user.first_name + ' ' + user.last_name
     context = {
