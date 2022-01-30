@@ -92,7 +92,7 @@ const TopBar = (props) => {
           {isLoggedIn && (
             <Box display='flex'>
               <Typography color="primary" className={classes.subtitle} variant="body2">
-                {user.name}
+                {user.designation}
               </Typography>
             <IconButton onClick={handleLogout} size="small"  className={classes.shoppingButton}>
                 <FiLogOut/>
