@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 class Info(models.Model):
     CHOICES = (('Client','Client'),('Org Leader','Org Leader'),('Team Leader','Team Leader'),('Team Member','Team Member'))
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    designation = models.CharField(max_length=100, default="Member", choices=CHOICES)
+    designation = models.CharField(max_length=100, default="Client", choices=CHOICES)
 
 class Team(models.Model):
     name = models.CharField(max_length=100, blank=False)

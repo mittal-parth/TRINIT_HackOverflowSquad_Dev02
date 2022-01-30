@@ -14,7 +14,7 @@ urlpatterns = [
     # Comment URLs
     path("comments/<str:pk>", views.comments, name = 'comments'),
 
-    path("userprofile/<str:pk>", views.userprofile, name = 'userprofile'),
+    path("auth/userprofile/<str:pk>", views.userprofile, name = 'userprofile'),
     #Tag URLs
     path("tag/", views.tag)
 ]

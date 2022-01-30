@@ -7,7 +7,8 @@ from .utils import *
 
 @api_view(['GET'])
 def userprofile(request, pk):
-    pass
+    if request.method == 'GET':
+        return getUserProfile(request, pk)
 
 ## Team Methods
 # TODO: Show teams based on user role
