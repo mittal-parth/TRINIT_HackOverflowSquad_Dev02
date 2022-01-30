@@ -1,5 +1,6 @@
 # TRINIT_HackOverflowSquad_Dev02 - Bug Tracker System
 PPT- https://docs.google.com/presentation/d/1RiBjRxTcjMEcbi8Sdi8CqayNF9EpRYpMZAKCs2sIYlo/edit#slide=id.p
+Demo - https://drive.google.com/file/d/1grRKmIVe_TMKpHQ1ZIUTmAOCt5HNYX9t/view?usp=sharing
 
 <br>
 <h2>Setting up the project:</h2>
