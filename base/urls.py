@@ -8,6 +8,7 @@ urlpatterns = [
     path("team/<str:pk>/", views.team, name="team"),
 
     # Bug URLs
+    path("buglist/<str:pk>/",views.bugslist, name = 'buglist'),
     path("bugs/", views.bugs, name = 'bugs'),
     path("bug/<str:pk>/", views.bug, name="bug"),
 

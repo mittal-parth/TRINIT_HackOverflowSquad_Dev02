@@ -39,13 +39,17 @@ def tag(request):
         createTag(request)
 
 ## Bug methods
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def bugs(request):
-    if request.method == 'GET':
-        return getBugs(request)
-
     if request.method == 'POST':
         return createBug(request)
+
+@api_view(['GET'])
+def bugslist(request, pk):
+    if request.method == 'GET':
+        return getBugs(request,pk)
+
+
 
 # Methods pertaining to a single bug (excluding create)
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])

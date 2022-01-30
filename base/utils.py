@@ -80,9 +80,14 @@ def createTag(request):
 ## ----Bug Methods----
 
 # Get bug list
-def getBugs(request):
-    # TODO: Send bug list based on role and permissions
-    bugs = Bug.objects.all()
+def getBugs(request, pk):
+    if request.user.info.designation == 'Client':
+        bugs = Bug.objects.filter(requested_by = User.objects.get(id = pk))
+    elif request.user.info.designation == 'Org Leader':
+        bugs = Bug.objects.all()
+    elif request.user.info.designation == 'Team Leader' or request.user.info.designation == 'Team Member':
+        team_id = request.user.team_members.first().id
+        bugs = Bug.objects.filter(team_id = team_id)
     serializer = BugSerialzer(bugs, many=True)
 
     return Response(serializer.data)
@@ -107,10 +112,13 @@ def readBug(request, pk):
 # Update Bug
 def updateBug(request, pk):
     bug = Bug.objects.get(id=pk)
-    serializer = BugSerialzer(instance=bug, data=request.data)
+    serializer = BugSerialzer(instance=bug, data=request.data, many=False)
+    
     if serializer.is_valid():
         serializer.save()
-
+        bug = Bug.objects.get(id=pk)
+        serializer = BugSerialzer(bug, many=False)
+        # print(serializer)
     return Response(serializer.data)
 
 # Delete Bug
